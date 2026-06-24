@@ -868,6 +868,124 @@
     }
     .details-toggle.open .material-symbols-rounded { transform: rotate(180deg); }
 
+
+    /* ===== НОВЫЕ СЕКЦИИ ===== */
+    .page-section {
+      margin-top: 20px;
+    }
+    .section-title-main {
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+    .section-desc {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* ===== ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ===== */
+    .tariff-table {
+      border-radius: 18px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      overflow: hidden;
+      font-size: 0.72rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .tariff-table__head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) repeat(5, minmax(0, 1fr));
+      padding: 10px 14px;
+      background: var(--color-surface-offset);
+      font-weight: 600;
+      color: var(--color-text-muted);
+      gap: 6px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .tariff-table__body { max-height: 340px; overflow-y: auto; }
+    .tariff-table__row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) repeat(5, minmax(0, 1fr));
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--color-border);
+      gap: 6px;
+      align-items: center;
+      transition: background 0.15s;
+    }
+    .tariff-table__row:last-child { border-bottom: none; }
+    .tariff-table__row:hover { background: var(--color-surface-soft); }
+    .tariff-table__cell--service { font-weight: 600; color: var(--color-text); }
+    .tariff-table__cell--highlight { color: var(--color-primary); font-weight: 600; }
+
+    /* ===== ПРОМОКОДЫ GRID ===== */
+    .promos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .promo-card {
+      background: var(--color-surface);
+      border-radius: 16px;
+      border: 1px solid var(--color-border);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .promo-card__name {
+      font-weight: 700;
+      font-size: var(--text-sm);
+      margin-bottom: 4px;
+    }
+    .promo-card__code {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-primary-highlight);
+      color: var(--color-primary);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin: 6px 0;
+    }
+    .promo-card__desc {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===== FAQ ===== */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    .faq-item {
+      background: var(--color-surface);
+      border-radius: 16px;
+      border: 1px solid var(--color-border);
+      padding: 12px 16px;
+      font-size: var(--text-xs);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--color-text);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+    }
+    .faq-item[open] summary::after { content: '\2212'; }
+    .faq-item p {
+      margin-top: 8px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
@@ -891,23 +1009,23 @@
         </div>
       </div>
 
-      <nav class="nav-list" aria-label="Главная навигация">
-        <div class="nav-item active">
+      <nav class="nav-list" aria-label="Содержание страницы">
+        <button class="nav-item active" data-target="#section-calculator" type="button">
           <div class="nav-dot">💳</div>
           <span>Калькулятор карт</span>
-        </div>
-        <div class="nav-item">
+        </button>
+        <button class="nav-item" data-target="#section-comparison" type="button">
           <div class="nav-dot">📊</div>
-          <span>Аналитика спенда</span>
-        </div>
-        <div class="nav-item">
-          <div class="nav-dot">🧩</div>
-          <span>Сервисы карт</span>
-        </div>
-        <div class="nav-item">
-          <div class="nav-dot">📚</div>
-          <span>Блог для арбитражников</span>
-        </div>
+          <span>Сравнение тарифов</span>
+        </button>
+        <button class="nav-item" data-target="#section-promos" type="button">
+          <div class="nav-dot">🎟</div>
+          <span>Промокоды и бонусы</span>
+        </button>
+        <button class="nav-item" data-target="#section-faq" type="button">
+          <div class="nav-dot">❓</div>
+          <span>FAQ</span>
+        </button>
       </nav>
 
       <div class="nav-help">
@@ -939,8 +1057,10 @@
         </div>
       </header>
 
-      <div class="dash-grid">
-        <!-- CAMPAIGN / FILTERS -->
+
+      <section id="section-calculator" class="page-section">
+        <div class="dash-grid">
+          <!-- CAMPAIGN / FILTERS -->
         <div class="campaign-panel">
           <div class="panel-card">
             <div class="panel-title-row">
@@ -1089,50 +1209,108 @@
           </button>
         </div>
 
-        <!-- RESULTS -->
-        <div class="results-panel">
-          <div class="summary-row">
-            <div class="stat-card">
-              <div class="stat-label">Лучший сервис</div>
-              <div class="stat-value" id="best-service">—</div>
+          <!-- RESULTS -->
+          <div class="results-panel">
+            <div class="summary-row">
+              <div class="stat-card">
+                <div class="stat-label">Лучший сервис</div>
+                <div class="stat-value" id="best-service">—</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Мин. расходы/мес</div>
+                <div class="stat-value" id="best-cost">—</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Экономия vs худшего</div>
+                <div class="stat-value" id="max-savings">—</div>
+              </div>
             </div>
-            <div class="stat-card">
-              <div class="stat-label">Мин. расходы/мес</div>
-              <div class="stat-value" id="best-cost">—</div>
+
+            <div class="summary-pills" id="filters-strip">
+              <span class="pill pill-spend" id="pill-spend"></span>
+              <span class="pill pill-cards" id="pill-cards"></span>
             </div>
-            <div class="stat-card">
-              <div class="stat-label">Экономия vs худшего</div>
-              <div class="stat-value" id="max-savings">—</div>
+
+            <div class="empty-state" id="empty-state">
+              <div class="empty-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                  <line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+              </div>
+              <h3>Заполни параметры кампании</h3>
+              <p>Укажи спенд, количество карт и фильтры. Мы посчитаем честную стоимость и покажем лучшие сервисы.</p>
+            </div>
+
+            <div id="results-content" style="display:none;">
+              <div class="cards-grid" id="cards-grid"></div>
+              <div style="margin-top: 10px; padding: 0 4px; font-size: 0.7rem; color: var(--color-text-faint); line-height: 1.5;">
+                Данные носят ознакомительный характер и могут быть устаревшими. Условия сервисов меняются регулярно. Проверяйте актуальные тарифы на официальных сайтах перед запуском.
+              </div>
             </div>
           </div>
 
-          <div class="summary-pills" id="filters-strip">
-            <span class="pill pill-spend" id="pill-spend"></span>
-            <span class="pill pill-cards" id="pill-cards"></span>
-          </div>
+        </div><!-- /dash-grid -->
+      </section><!-- /section-calculator -->
 
-          <div class="empty-state" id="empty-state">
-            <div class="empty-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-                <line x1="1" y1="10" x2="23" y2="10"/>
-              </svg>
-            </div>
-            <h3>Заполни параметры кампании</h3>
-            <p>Укажи спенд, количество карт и фильтры. Мы посчитаем честную стоимость и покажем лучшие сервисы.</p>
+      <!-- СРАВНЕНИЕ ТАРИФОВ -->
+      <section id="section-comparison" class="page-section">
+        <h2 class="section-title-main">Сравнение тарифов</h2>
+        <p class="section-desc">Все сервисы в одной таблице — сравни ставки, комиссии и кэшбэк</p>
+        <div class="tariff-table">
+          <div class="tariff-table__head">
+            <div class="tariff-table__cell tariff-table__cell--service">Сервис</div>
+            <div class="tariff-table__cell">Фандинг, %</div>
+            <div class="tariff-table__cell">Выпуск карты, $</div>
+            <div class="tariff-table__cell">Обслуживание/мес, $</div>
+            <div class="tariff-table__cell">Аккаунт, $</div>
+            <div class="tariff-table__cell">Кэшбэк, %</div>
           </div>
-
-          <div id="results-content" style="display:none;">
-            <div class="cards-grid" id="cards-grid"></div>
-            <div style="margin-top: 10px; padding: 0 4px; font-size: 0.7rem; color: var(--color-text-faint); line-height: 1.5;">
-              Данные носят ознакомительный характер и могут быть устаревшими. Условия сервисов меняются регулярно. Проверяйте актуальные тарифы на официальных сайтах перед запуском.
-            </div>
+          <div class="tariff-table__body" id="tariff-table-body">
+            <!-- строки добавятся из JS при загрузке -->
           </div>
         </div>
-      </div>
-    </section>
-  </div>
-</div>
+      </section>
+
+      <!-- ПРОМОКОДЫ И БОНУСЫ -->
+      <section id="section-promos" class="page-section">
+        <h2 class="section-title-main">Промокоды и бонусы</h2>
+        <p class="section-desc">Актуальные бонусы от провайдеров виртуальных карт</p>
+        <div class="promos-grid" id="promos-grid">
+          <!-- строки добавятся из JS при загрузке -->
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="section-faq" class="page-section">
+        <h2 class="section-title-main">FAQ</h2>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Как считается итоговая стоимость?</summary>
+            <p>Итого/мес = (Спенд × % комиссия фандинга) + (Кол-во карт × стоимость выпуска) + (Кол-во карт × ежемесячное обслуживание) + фиксированная плата за аккаунт − кэшбэк со спенда. Такой подход даёт честное сравнение реальной нагрузки на бюджет.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Могут ли данные по тарифам быть устаревшими?</summary>
+            <p>Да. Провайдеры часто меняют комиссии, условия пополнения и BIN-структуру. Калькулятор — стартовая точка для сравнения. Перед запуском кампаний всегда проверяйте актуальные тарифы на официальных сайтах сервисов.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Что такое BIN и почему важна его страна?</summary>
+            <p>BIN (Bank Identification Number) — первые 6 цифр карты, идентифицирующие банк-эмитент. Рекламные платформы (Meta, Google, TikTok) анализируют BIN при привязке карты. Американские и европейские BIN'ы, как правило, вызывают меньше подозрений у антифрода платформ.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Чем отличается комиссия на фандинг от стоимости выпуска?</summary>
+            <p>Комиссия на фандинг — это процент, который сервис берёт при пополнении баланса (например, 3% от суммы). Стоимость выпуска — разовый платёж за создание каждой новой виртуальной карты. Оба параметра влияют на итоговую стоимость, но по-разному при разных объёмах спенда.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Когда выгоднее выбрать сервис с кэшбэком?</summary>
+            <p>Если ты стабильно тратишь на рекламу от $3 000–5 000 в месяц, кэшбэк 2–3% со спенда может полностью перекрыть комиссию на фандинг и даже выйти в плюс. На малых объёмах выгоднее фокусироваться на сервисах без комиссии за выпуск карт.</p>
+          </details>
+        </div>
+      </section>
+
+    </section><!-- /dashboard-pane -->
+  </div><!-- /page-inner -->
+</div><!-- /page-shell -->
 
 <script>
   const SERVICES = [
@@ -1148,8 +1326,8 @@
       nokyc: false,
       card_types: ["Visa", "Mastercard"],
       team_support: true,
-      trusted_bins: ["Meta","TikTok","Google","Push-сети","Telegram Ads"],
-      platforms: ["Meta","TikTok","Google","Push-сети","Telegram Ads"],
+      trusted_bins: ["Meta","TikTok","Google"],
+      platforms: ["Meta","TikTok","Google"],
       funding_methods: ["USDT","BTC","Карта"],
       promo: { code: "PST3CB", description: "Кэшбэк 3% на весь спенд" },
       color: "#4f98a3",
@@ -1157,6 +1335,7 @@
       bin_countries: ["США", "Европа"],
       note: "Кэшбэк компенсирует комиссию на фандинг при стабильном спенде."
     },
+
     {
       name: "Brocard",
       funding_fee_pct: 0,
@@ -1178,6 +1357,7 @@
       bin_countries: ["США", "Европа"],
       note: "Отличный вариант для старта без KYC и с бонусными картами."
     },
+
     {
       name: "FlexCard",
       funding_fee_pct: 3.5,
@@ -1191,7 +1371,7 @@
       card_types: ["Visa"],
       team_support: true,
       trusted_bins: ["Meta"],
-      platforms: ["Meta","TikTok","Google","Push-сети"],
+      platforms: ["Meta","TikTok","Google"],
       funding_methods: ["USDT","Карта"],
       promo: null,
       color: "#da7101",
@@ -1199,6 +1379,7 @@
       bin_countries: ["США", "Европа"],
       note: "Высокое доверие у Meta Ads, упор на стабильные БИНы."
     },
+
     {
       name: "AdsCard",
       funding_fee_pct: 2.0,
@@ -1220,6 +1401,7 @@
       bin_countries: ["США"],
       note: "Командный медиабаинг, ролевой доступ и удобный кабинет."
     },
+
     {
       name: "Capitalist",
       funding_fee_pct: 2.0,
@@ -1232,8 +1414,8 @@
       nokyc: false,
       card_types: ["Visa", "Mastercard"],
       team_support: true,
-      trusted_bins: ["Meta","Google","TikTok","Push-сети"],
-      platforms: ["Meta","Google","TikTok","Push-сети"],
+      trusted_bins: ["Meta","Google","TikTok"],
+      platforms: ["Meta","Google","TikTok"],
       funding_methods: ["USDT","BTC","Банк","Карта"],
       promo: null,
       color: "#7a39bb",
@@ -1241,6 +1423,7 @@
       bin_countries: ["Европа"],
       note: "Экосистема для выплат и карт, удобно для больших команд."
     },
+
     {
       name: "Spendge",
       funding_fee_pct: 2.5,
@@ -1262,6 +1445,7 @@
       bin_countries: ["США"],
       note: "Сильные БИНы под TikTok, обслуживание $1/карта."
     },
+
     {
       name: "EPN (e.PN)",
       funding_fee_pct: 0,
@@ -1274,8 +1458,8 @@
       nokyc: false,
       card_types: ["Visa", "Mastercard"],
       team_support: false,
-      trusted_bins: ["Meta","Google","TikTok","Push-сети"],
-      platforms: ["Meta","Google","TikTok","Push-сети"],
+      trusted_bins: ["Meta","Google","TikTok"],
+      platforms: ["Meta","Google","TikTok"],
       funding_methods: ["USDT","Карта","Банк"],
       promo: { code: "EPN2024", description: "Скидка на первые выпуски карт" },
       color: "#964219",
@@ -1283,6 +1467,7 @@
       bin_countries: ["США", "Европа"],
       note: "Без комиссии за фандинг, платишь только за выпуск карт."
     },
+
     {
       name: "Mybrocard",
       funding_fee_pct: 0,
@@ -1304,6 +1489,7 @@
       bin_countries: ["США"],
       note: "Фикс $10/мес за аккаунт, без доп. комиссий за выпуск."
     },
+
     {
       name: "Pay2House",
       funding_fee_pct: 2.0,
@@ -1317,7 +1503,7 @@
       card_types: ["Visa"],
       team_support: false,
       trusted_bins: ["Meta","TikTok"],
-      platforms: ["Meta","TikTok","Push-сети"],
+      platforms: ["Meta","TikTok"],
       funding_methods: ["USDT","Карта"],
       promo: { code: "P2H10", description: "Скидка 10% на первый месяц" },
       color: "#d19900",
@@ -1325,6 +1511,7 @@
       bin_countries: ["США"],
       note: "Доступный тариф, популярен у СНГ-команд."
     },
+  
   ];
 
   let state = {
@@ -1362,7 +1549,84 @@
         container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         callback(chip.dataset.value);
-        updateContextPill(); updateFilterChips();
+      
+
+  // === ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ===
+  function fillTariffTable() {
+    const body = document.getElementById('tariff-table-body');
+    if (!body) return;
+    body.innerHTML = '';
+    SERVICES.forEach(svc => {
+      const row = document.createElement('div');
+      row.className = 'tariff-table__row';
+      const cashback = svc.cashback_pct ? svc.cashback_pct.toFixed(2) + '%' : '—';
+      row.innerHTML = `
+        <div class="tariff-table__cell tariff-table__cell--service">${svc.name}</div>
+        <div class="tariff-table__cell">${svc.funding_fee_pct.toFixed(2)}%</div>
+        <div class="tariff-table__cell">$${svc.card_issue_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.card_monthly_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.account_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell ${svc.cashback_pct ? 'tariff-table__cell--highlight' : ''}">${cashback}</div>
+      `;
+      body.appendChild(row);
+    });
+  }
+
+  // === БЛОК ПРОМОКОДОВ ===
+  function fillPromos() {
+    const grid = document.getElementById('promos-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
+    if (!withPromo.length) {
+      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      return;
+    }
+    withPromo.forEach(svc => {
+      const card = document.createElement('div');
+      card.className = 'promo-card';
+      card.innerHTML = `
+        <div class="promo-card__name">${svc.name}</div>
+        <div class="promo-card__code">
+          <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+          ${svc.promo.code}
+        </div>
+        <div class="promo-card__desc">${svc.promo.description}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // === TOC НАВИГАЦИЯ ===
+  const tocItems = Array.from(document.querySelectorAll('.nav-list .nav-item[data-target]'));
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.querySelector(item.getAttribute('data-target'));
+      if (!target) return;
+      const offset = target.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
+
+  const sectionEls = tocItems
+    .map(item => ({ item, el: document.querySelector(item.getAttribute('data-target')) }))
+    .filter(x => x.el);
+
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      tocItems.forEach(it => {
+        it.classList.toggle('active', it.getAttribute('data-target') === id);
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sectionEls.forEach(({ el }) => tocObserver.observe(el));
+
+  updateContextPill(); updateFilterChips();
+  fillTariffTable();
+  fillPromos();
       });
     });
   }
@@ -1377,7 +1641,84 @@
       document.querySelectorAll('.radio-item').forEach(r => r.classList.remove('active'));
       item.classList.add('active');
       state.priority = item.dataset.value;
-      updateContextPill(); updateFilterChips();
+    
+
+  // === ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ===
+  function fillTariffTable() {
+    const body = document.getElementById('tariff-table-body');
+    if (!body) return;
+    body.innerHTML = '';
+    SERVICES.forEach(svc => {
+      const row = document.createElement('div');
+      row.className = 'tariff-table__row';
+      const cashback = svc.cashback_pct ? svc.cashback_pct.toFixed(2) + '%' : '—';
+      row.innerHTML = `
+        <div class="tariff-table__cell tariff-table__cell--service">${svc.name}</div>
+        <div class="tariff-table__cell">${svc.funding_fee_pct.toFixed(2)}%</div>
+        <div class="tariff-table__cell">$${svc.card_issue_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.card_monthly_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.account_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell ${svc.cashback_pct ? 'tariff-table__cell--highlight' : ''}">${cashback}</div>
+      `;
+      body.appendChild(row);
+    });
+  }
+
+  // === БЛОК ПРОМОКОДОВ ===
+  function fillPromos() {
+    const grid = document.getElementById('promos-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
+    if (!withPromo.length) {
+      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      return;
+    }
+    withPromo.forEach(svc => {
+      const card = document.createElement('div');
+      card.className = 'promo-card';
+      card.innerHTML = `
+        <div class="promo-card__name">${svc.name}</div>
+        <div class="promo-card__code">
+          <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+          ${svc.promo.code}
+        </div>
+        <div class="promo-card__desc">${svc.promo.description}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // === TOC НАВИГАЦИЯ ===
+  const tocItems = Array.from(document.querySelectorAll('.nav-list .nav-item[data-target]'));
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.querySelector(item.getAttribute('data-target'));
+      if (!target) return;
+      const offset = target.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
+
+  const sectionEls = tocItems
+    .map(item => ({ item, el: document.querySelector(item.getAttribute('data-target')) }))
+    .filter(x => x.el);
+
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      tocItems.forEach(it => {
+        it.classList.toggle('active', it.getAttribute('data-target') === id);
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sectionEls.forEach(({ el }) => tocObserver.observe(el));
+
+  updateContextPill(); updateFilterChips();
+  fillTariffTable();
+  fillPromos();
     });
   });
 
@@ -1389,7 +1730,84 @@
       state[stateKey] = !state[stateKey];
       btn.classList.toggle('active', state[stateKey]);
       btn.setAttribute('aria-pressed', state[stateKey]);
-      updateContextPill(); updateFilterChips();
+    
+
+  // === ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ===
+  function fillTariffTable() {
+    const body = document.getElementById('tariff-table-body');
+    if (!body) return;
+    body.innerHTML = '';
+    SERVICES.forEach(svc => {
+      const row = document.createElement('div');
+      row.className = 'tariff-table__row';
+      const cashback = svc.cashback_pct ? svc.cashback_pct.toFixed(2) + '%' : '—';
+      row.innerHTML = `
+        <div class="tariff-table__cell tariff-table__cell--service">${svc.name}</div>
+        <div class="tariff-table__cell">${svc.funding_fee_pct.toFixed(2)}%</div>
+        <div class="tariff-table__cell">$${svc.card_issue_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.card_monthly_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.account_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell ${svc.cashback_pct ? 'tariff-table__cell--highlight' : ''}">${cashback}</div>
+      `;
+      body.appendChild(row);
+    });
+  }
+
+  // === БЛОК ПРОМОКОДОВ ===
+  function fillPromos() {
+    const grid = document.getElementById('promos-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
+    if (!withPromo.length) {
+      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      return;
+    }
+    withPromo.forEach(svc => {
+      const card = document.createElement('div');
+      card.className = 'promo-card';
+      card.innerHTML = `
+        <div class="promo-card__name">${svc.name}</div>
+        <div class="promo-card__code">
+          <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+          ${svc.promo.code}
+        </div>
+        <div class="promo-card__desc">${svc.promo.description}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // === TOC НАВИГАЦИЯ ===
+  const tocItems = Array.from(document.querySelectorAll('.nav-list .nav-item[data-target]'));
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.querySelector(item.getAttribute('data-target'));
+      if (!target) return;
+      const offset = target.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
+
+  const sectionEls = tocItems
+    .map(item => ({ item, el: document.querySelector(item.getAttribute('data-target')) }))
+    .filter(x => x.el);
+
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      tocItems.forEach(it => {
+        it.classList.toggle('active', it.getAttribute('data-target') === id);
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sectionEls.forEach(({ el }) => tocObserver.observe(el));
+
+  updateContextPill(); updateFilterChips();
+  fillTariffTable();
+  fillPromos();
     });
   }
   initToggle('toggle-cashback', 'onlyCashback');
@@ -1397,12 +1815,166 @@
 
   spendInput.addEventListener('input', () => {
     state.spend = parseFloat(spendInput.value) || 1000;
-    updateContextPill(); updateFilterChips();
+  
+
+  // === ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ===
+  function fillTariffTable() {
+    const body = document.getElementById('tariff-table-body');
+    if (!body) return;
+    body.innerHTML = '';
+    SERVICES.forEach(svc => {
+      const row = document.createElement('div');
+      row.className = 'tariff-table__row';
+      const cashback = svc.cashback_pct ? svc.cashback_pct.toFixed(2) + '%' : '—';
+      row.innerHTML = `
+        <div class="tariff-table__cell tariff-table__cell--service">${svc.name}</div>
+        <div class="tariff-table__cell">${svc.funding_fee_pct.toFixed(2)}%</div>
+        <div class="tariff-table__cell">$${svc.card_issue_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.card_monthly_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.account_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell ${svc.cashback_pct ? 'tariff-table__cell--highlight' : ''}">${cashback}</div>
+      `;
+      body.appendChild(row);
+    });
+  }
+
+  // === БЛОК ПРОМОКОДОВ ===
+  function fillPromos() {
+    const grid = document.getElementById('promos-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
+    if (!withPromo.length) {
+      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      return;
+    }
+    withPromo.forEach(svc => {
+      const card = document.createElement('div');
+      card.className = 'promo-card';
+      card.innerHTML = `
+        <div class="promo-card__name">${svc.name}</div>
+        <div class="promo-card__code">
+          <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+          ${svc.promo.code}
+        </div>
+        <div class="promo-card__desc">${svc.promo.description}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // === TOC НАВИГАЦИЯ ===
+  const tocItems = Array.from(document.querySelectorAll('.nav-list .nav-item[data-target]'));
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.querySelector(item.getAttribute('data-target'));
+      if (!target) return;
+      const offset = target.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
+
+  const sectionEls = tocItems
+    .map(item => ({ item, el: document.querySelector(item.getAttribute('data-target')) }))
+    .filter(x => x.el);
+
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      tocItems.forEach(it => {
+        it.classList.toggle('active', it.getAttribute('data-target') === id);
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sectionEls.forEach(({ el }) => tocObserver.observe(el));
+
+  updateContextPill(); updateFilterChips();
+  fillTariffTable();
+  fillPromos();
   });
   cardsSlider.addEventListener('input', () => {
     state.cards = parseInt(cardsSlider.value) || 1;
     cardsVal.textContent = state.cards;
-    updateContextPill(); updateFilterChips();
+  
+
+  // === ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ===
+  function fillTariffTable() {
+    const body = document.getElementById('tariff-table-body');
+    if (!body) return;
+    body.innerHTML = '';
+    SERVICES.forEach(svc => {
+      const row = document.createElement('div');
+      row.className = 'tariff-table__row';
+      const cashback = svc.cashback_pct ? svc.cashback_pct.toFixed(2) + '%' : '—';
+      row.innerHTML = `
+        <div class="tariff-table__cell tariff-table__cell--service">${svc.name}</div>
+        <div class="tariff-table__cell">${svc.funding_fee_pct.toFixed(2)}%</div>
+        <div class="tariff-table__cell">$${svc.card_issue_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.card_monthly_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.account_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell ${svc.cashback_pct ? 'tariff-table__cell--highlight' : ''}">${cashback}</div>
+      `;
+      body.appendChild(row);
+    });
+  }
+
+  // === БЛОК ПРОМОКОДОВ ===
+  function fillPromos() {
+    const grid = document.getElementById('promos-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
+    if (!withPromo.length) {
+      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      return;
+    }
+    withPromo.forEach(svc => {
+      const card = document.createElement('div');
+      card.className = 'promo-card';
+      card.innerHTML = `
+        <div class="promo-card__name">${svc.name}</div>
+        <div class="promo-card__code">
+          <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+          ${svc.promo.code}
+        </div>
+        <div class="promo-card__desc">${svc.promo.description}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // === TOC НАВИГАЦИЯ ===
+  const tocItems = Array.from(document.querySelectorAll('.nav-list .nav-item[data-target]'));
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.querySelector(item.getAttribute('data-target'));
+      if (!target) return;
+      const offset = target.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
+
+  const sectionEls = tocItems
+    .map(item => ({ item, el: document.querySelector(item.getAttribute('data-target')) }))
+    .filter(x => x.el);
+
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      tocItems.forEach(it => {
+        it.classList.toggle('active', it.getAttribute('data-target') === id);
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sectionEls.forEach(({ el }) => tocObserver.observe(el));
+
+  updateContextPill(); updateFilterChips();
+  fillTariffTable();
+  fillPromos();
   });
 
   function calcCost(svc, spend, cards) {
@@ -1666,6 +2238,10 @@
       const teamBadge = svc.team_support ? `<span class="tag" style="background:#e0f2fe;color:#0369a1;border-color:#7dd3fc;">👥 Команда</span>` : '';
       const platformTags = svc.platforms.map(p => `<span class="tag platform">${p}</span>`).join('');
       const methodTags = svc.funding_methods.map(m => `<span class="tag method">${m}</span>`).join('');
+      const binCountryTags = (svc.bin_countries || []).map(c => {
+        const flag = c === 'США' ? '🇺🇸' : (c === 'Европа' ? '🇪🇺' : '🏦');
+        return `<span class="tag bin-country">${flag} ${c}</span>`;
+      }).join('');
       const noKYCBadge = svc.nokyc ? `<span class="tag" style="background:#dcfce7;color:#16a34a;border-color:#bbf7d0;">Без KYC</span>` : '';
       const promoBadge = svc.promo ? `<span class="promo-badge">🎟 Промокод</span>` : '';
 
@@ -1712,7 +2288,7 @@
       const detailsHtml = `
         <div class="card-details${detailsOpen}">
           <div class="card-details-inner">
-            <div class="card-tags">${platformTags}${methodTags}${noKYCBadge}${teamBadge}</div>
+            <div class="card-tags">${platformTags}${binCountryTags}${methodTags}${noKYCBadge}${teamBadge}</div>
           </div>
         </div>
         <button class="details-toggle${toggleOpen}" onclick="toggleDetails(this)">
@@ -1819,7 +2395,85 @@
     });
   })();
 
+
+
+  // === ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ===
+  function fillTariffTable() {
+    const body = document.getElementById('tariff-table-body');
+    if (!body) return;
+    body.innerHTML = '';
+    SERVICES.forEach(svc => {
+      const row = document.createElement('div');
+      row.className = 'tariff-table__row';
+      const cashback = svc.cashback_pct ? svc.cashback_pct.toFixed(2) + '%' : '—';
+      row.innerHTML = `
+        <div class="tariff-table__cell tariff-table__cell--service">${svc.name}</div>
+        <div class="tariff-table__cell">${svc.funding_fee_pct.toFixed(2)}%</div>
+        <div class="tariff-table__cell">$${svc.card_issue_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.card_monthly_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell">$${svc.account_fee.toFixed(2)}</div>
+        <div class="tariff-table__cell ${svc.cashback_pct ? 'tariff-table__cell--highlight' : ''}">${cashback}</div>
+      `;
+      body.appendChild(row);
+    });
+  }
+
+  // === БЛОК ПРОМОКОДОВ ===
+  function fillPromos() {
+    const grid = document.getElementById('promos-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
+    if (!withPromo.length) {
+      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      return;
+    }
+    withPromo.forEach(svc => {
+      const card = document.createElement('div');
+      card.className = 'promo-card';
+      card.innerHTML = `
+        <div class="promo-card__name">${svc.name}</div>
+        <div class="promo-card__code">
+          <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+          ${svc.promo.code}
+        </div>
+        <div class="promo-card__desc">${svc.promo.description}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // === TOC НАВИГАЦИЯ ===
+  const tocItems = Array.from(document.querySelectorAll('.nav-list .nav-item[data-target]'));
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.querySelector(item.getAttribute('data-target'));
+      if (!target) return;
+      const offset = target.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
+
+  const sectionEls = tocItems
+    .map(item => ({ item, el: document.querySelector(item.getAttribute('data-target')) }))
+    .filter(x => x.el);
+
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      tocItems.forEach(it => {
+        it.classList.toggle('active', it.getAttribute('data-target') === id);
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sectionEls.forEach(({ el }) => tocObserver.observe(el));
+
   updateContextPill(); updateFilterChips();
+  fillTariffTable();
+  fillPromos();
 </script>
+
 </body>
 </html>
