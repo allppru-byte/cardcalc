@@ -1225,22 +1225,68 @@
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 12px;
     }
+    
+    /* ===== PROMO CARDS ===== */
+    .promos-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
     .promo-card {
       background: var(--color-surface);
       border-radius: 16px;
       border: 1px solid var(--color-border);
-      padding: 14px 16px;
       box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) 44px;
+      align-items: stretch;
+      gap: 12px;
+      padding: 0;
+      overflow: hidden;
+    }
+    .promo-card__logo {
+      width: 52px;
+      height: 52px;
+      margin: 14px 0 14px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-soft, #f5f5f5);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .promo-card__logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+    }
+    .promo-card__body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 14px 0;
     }
     .promo-card__name {
       font-weight: 700;
       font-size: var(--text-sm);
-      margin-bottom: 4px;
+      color: var(--color-text);
+      line-height: 1.2;
+    }
+    .promo-card__top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
     .promo-card__code {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: var(--color-primary-highlight);
       color: var(--color-primary);
       border-radius: 8px;
@@ -1248,11 +1294,69 @@
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      margin: 6px 0;
+    }
+    .promo-copy-inline {
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      background: transparent;
+      color: var(--color-text);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .promo-copy-inline:hover {
+      background: var(--color-surface-offset);
     }
     .promo-card__desc {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+    .promo-card__actions {
+      display: flex;
+      align-self: stretch;
+    }
+    .promo-site-btn {
+      width: 44px;
+      min-width: 44px;
+      border-radius: 0 16px 16px 0;
+      background: var(--color-primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .promo-site-btn:hover {
+      background: var(--color-primary-hover);
+    }
+    .promo-site-btn .material-symbols-rounded {
+      font-size: 20px;
+    }
+    @media (max-width: 700px) {
+      .promo-card {
+        grid-template-columns: 44px minmax(0, 1fr) 40px;
+        gap: 10px;
+      }
+      .promo-card__logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        margin: 12px 0 12px 12px;
+      }
+      .promo-card__body {
+        padding: 12px 0;
+      }
+      .promo-site-btn {
+        width: 40px;
+        min-width: 40px;
+        border-radius: 0 14px 14px 0;
+      }
     }
 
     /* ===== FAQ ===== */
@@ -1288,128 +1392,129 @@
     }
   
 
-/* ===== PROMOS HARD OVERRIDE ===== */
-#promos-grid {
-  display: grid !important;
-  gap: 12px !important;
-}
-#promos-grid .promo-item-hard {
-  display: grid !important;
-  grid-template-columns: 56px minmax(0,1fr) 48px !important;
-  align-items: stretch !important;
-  gap: 12px !important;
-  padding: 14px !important;
-  border: 1px solid var(--color-border) !important;
-  border-radius: 18px !important;
-  background: var(--color-surface) !important;
-  box-shadow: var(--shadow-sm) !important;
-  overflow: hidden !important;
-}
-#promos-grid .promo-item-hard__logo {
-  width: 56px !important;
-  height: 56px !important;
-  border-radius: 14px !important;
-  border: 1px solid var(--color-border) !important;
-  background: var(--color-surface-soft, #f5f5f5) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-}
-#promos-grid .promo-item-hard__logo img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  background: #fff !important;
-  display: block !important;
-}
-#promos-grid .promo-item-hard__fallback {
-  font-size: 12px !important;
-  font-weight: 800 !important;
-  color: var(--color-primary) !important;
-}
-#promos-grid .promo-item-hard__main {
-  min-width: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  gap: 8px !important;
-}
-#promos-grid .promo-item-hard__name {
-  font-size: 16px !important;
-  line-height: 1.2 !important;
-  font-weight: 700 !important;
-  color: var(--color-text) !important;
-}
-#promos-grid .promo-item-hard__row {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  flex-wrap: wrap !important;
-}
-#promos-grid .promo-item-hard__code {
-  display: inline-flex !important;
-  align-items: center !important;
-  min-height: 34px !important;
-  padding: 0 12px !important;
-  border-radius: 999px !important;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border)) !important;
-  background: color-mix(in srgb, var(--color-primary) 10%, transparent) !important;
-  color: var(--color-primary) !important;
-  font-size: 13px !important;
-  font-weight: 800 !important;
-  font-family: var(--font-mono, monospace) !important;
-  letter-spacing: .03em !important;
-}
-#promos-grid .promo-item-hard__copy {
-  min-height: 34px !important;
-  padding: 0 12px !important;
-  border-radius: 999px !important;
-  border: 1px solid var(--color-border) !important;
-  background: transparent !important;
-  color: var(--color-text) !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-}
-#promos-grid .promo-item-hard__desc {
-  font-size: 12px !important;
-  line-height: 1.45 !important;
-  color: var(--color-text-muted) !important;
-  max-width: none !important;
-}
-#promos-grid .promo-item-hard__go {
-  width: 48px !important;
-  min-width: 48px !important;
-  align-self: stretch !important;
-  border-radius: 14px !important;
-  background: linear-gradient(180deg, var(--color-primary-hover), var(--color-primary)) !important;
-  color: #fff !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-decoration: none !important;
-}
-#promos-grid .promo-item-hard__go .material-symbols-rounded {
-  font-size: 22px !important;
-}
-@media (max-width: 700px) {
-  #promos-grid .promo-item-hard {
-    grid-template-columns: 48px minmax(0,1fr) 42px !important;
-    gap: 10px !important;
-    padding: 12px !important;
-  }
-  #promos-grid .promo-item-hard__logo {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 12px !important;
-  }
-  #promos-grid .promo-item-hard__go {
-    width: 42px !important;
-    min-width: 42px !important;
-    border-radius: 12px !important;
-  }
-}
+/* ===== PROMO LEGACY PATCH ===== */
+.promos-grid { display: grid; gap: 12px; }
+.promos-grid /* === TH tooltips for tariff table === */
+    .th-with-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .th-hint-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+      cursor: default;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      position: relative;
+    }
+    .th-hint-icon::after {
+      content: attr(data-hint);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translateX(-50%);
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      font-size: 11px;
+      line-height: 1.3;
+      white-space: normal;
+      max-width: 240px;
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease-out;
+      z-index: 20;
+    }
+    .th-hint-icon::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      border-width: 6px;
+      border-style: solid;
+      border-color: transparent transparent var(--color-surface) transparent;
+      opacity: 0;
+      transition: opacity 0.12s ease-out;
+      z-index: 19;
+    }
+    .th-hint-icon.is-open::after,
+    .th-hint-icon.is-open::before {
+      opacity: 1;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .th-hint-icon:hover::after,
+      .th-hint-icon:hover::before {
+        opacity: 1;
+      }
+    }
+
+    /* === TH tooltip icons === */
+    .th-with-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .th-hint-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      flex-shrink: 0;
+      user-select: none;
+    }
+    #th-tooltip-box {
+      position: fixed;
+      z-index: 9999;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: var(--color-surface, #fff);
+      border: 1px solid var(--color-border, #ddd);
+      color: var(--color-text, #222);
+      font-size: 12px;
+      line-height: 1.45;
+      max-width: 240px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.12s ease-out;
+    }
+    #th-tooltip-box.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    #th-tooltip-box::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--color-border, #ddd) transparent transparent transparent;
+    }
 </style>
 </head>
 <body>
@@ -1700,11 +1805,31 @@
         <div class="tariff-table">
           <div class="tariff-table__head">
             <div class="tariff-table__cell tariff-table__cell--service">Сервис</div>
-            <div class="tariff-table__cell">Фандинг, %</div>
-            <div class="tariff-table__cell">Выпуск карты, $</div>
-            <div class="tariff-table__cell">Обслуживание/мес, $</div>
-            <div class="tariff-table__cell">Аккаунт, $</div>
-            <div class="tariff-table__cell">Кэшбэк, %</div>
+            <div class="tariff-table__cell">
+              <span class="th-with-hint">
+                Фандинг, %
+                <span class="th-hint-icon" data-hint="Комиссия сервиса при пополнении баланса (процент от суммы фандинга)">i</span>
+              </span>
+            </div>
+            <div class="tariff-table__cell">
+              <span class="th-with-hint">
+                Выпуск карты, $
+                <span class="th-hint-icon" data-hint="Разовый платёж за создание новой виртуальной карты">i</span>
+              </span>
+            </div>
+            <div class="tariff-table__cell">
+              <span class="th-with-hint">
+                Обслуживание/мес, $
+                <span class="th-hint-icon" data-hint="Сколько стоит держать карту в месяц, даже если по ней нет спенда">i</span>
+              </span>
+            </div>
+            <div class="tariff-table__cell">
+              <span class="th-with-hint">
+                Аккаунт, $
+                <span class="th-hint-icon" data-hint="Фиксированная абонплата за аккаунт в сервисе карт (если есть)">i</span>
+              </span>
+            </div>
+            <div class="tariff-table__cell tariff-table__cell--highlight">Кэшбэк</div>
           </div>
           <div class="tariff-table__body" id="tariff-table-body">
             <!-- строки добавятся из JS при загрузке -->
@@ -2017,6 +2142,8 @@
   function fillPromos() {
     const grid = document.getElementById('promos-grid');
     if (!grid) return;
+    grid.innerHTML = '';
+    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
     const LOGO_MAP = {
       'EPN': 'img/servisi/E.pn.webp',
       'Mybrocard': 'img/servisi/mybrocard.webp',
@@ -2029,33 +2156,38 @@
       'Pay2House': 'img/servisi/pay2house.webp'
     };
     const esc = (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
     if (!withPromo.length) {
-      grid.innerHTML = '<p style="font-size:12px;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
       return;
     }
-    grid.innerHTML = withPromo.map((svc) => {
-      const logo = LOGO_MAP[svc.name] || '';
-      const fallback = esc((svc.name || '?').slice(0,2).toUpperCase());
-      const logoHtml = logo
-        ? `<img src="${logo}" alt="${esc(svc.name)}" loading="lazy" width="56" height="56">`
-        : `<span class="promo-item-hard__fallback">${fallback}</span>`;
-      return `
-        <article class="promo-item-hard">
-          <div class="promo-item-hard__logo">${logoHtml}</div>
-          <div class="promo-item-hard__main">
-            <div class="promo-item-hard__name">${esc(svc.name === 'Brocard' ? 'Mybrocard' : svc.name)}</div>
-            <div class="promo-item-hard__row">
-              <span class="promo-item-hard__code">${esc(svc.promo.code)}</span>
-              <button class="promo-item-hard__copy" type="button" data-copy="${esc(svc.promo.code)}">Копировать</button>
+    withPromo.forEach(svc => {
+      const card = document.createElement('div');
+      card.className = 'promo-card';
+      const viewName = svc.name === 'Brocard' ? 'Mybrocard' : svc.name;
+      const logo = LOGO_MAP[viewName] || LOGO_MAP[svc.name] || '';
+      card.innerHTML = `
+        <div class="promo-card__logo">
+          ${logo ? `<img src="${logo}" alt="${esc(viewName)}" loading="lazy" width="52" height="52">` : ''}
+        </div>
+        <div class="promo-card__body">
+          <div class="promo-card__name">${esc(viewName)}</div>
+          <div class="promo-card__top">
+            <div class="promo-card__code">
+              <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+              ${esc(svc.promo.code)}
             </div>
-            <div class="promo-item-hard__desc">${esc(svc.promo.description || '')}</div>
+            <button class="promo-copy-inline" type="button" data-copy="${esc(svc.promo.code)}">Копировать</button>
           </div>
-          <a class="promo-item-hard__go" href="${svc.url}" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт ${esc(svc.name)}">
+          <div class="promo-card__desc">${esc(svc.promo.description || '')}</div>
+        </div>
+        <div class="promo-card__actions">
+          <a class="promo-site-btn" href="${svc.url}" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт ${esc(viewName)}">
             <span class="material-symbols-rounded">arrow_forward</span>
           </a>
-        </article>`;
-    }).join('');
+        </div>
+      `;
+      grid.appendChild(card);
+    });
   }
 
   // === TOC НАВИГАЦИЯ ===
@@ -2934,6 +3066,92 @@
   updateContextPill(); updateFilterChips();
   fillTariffTable();
   fillPromos();
+
+  document.addEventListener('click', (e) => {
+    const icon = e.target.closest('.th-hint-icon');
+    const openIcons = document.querySelectorAll('.th-hint-icon.is-open');
+    if (!icon) {
+      openIcons.forEach(el => el.classList.remove('is-open'));
+      return;
+    }
+    const willOpen = !icon.classList.contains('is-open');
+    openIcons.forEach(el => el.classList.remove('is-open'));
+    if (willOpen) icon.classList.add('is-open');
+  });
+
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-copy]');
+    if (!btn || btn.closest('.th-hint-icon')) return;
+    const val = btn.getAttribute('data-copy') || '';
+    const old = btn.textContent;
+    try {
+      await navigator.clipboard.writeText(val);
+      btn.textContent = 'Скопировано ✓';
+      btn.style.color = 'var(--color-primary)';
+    } catch {
+      btn.textContent = 'Ошибка';
+    }
+    setTimeout(() => { btn.textContent = old; btn.style.color = ''; }, 1400);
+  });
+
+  // === Promo copy button ===
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-copy]');
+    if (!btn) return;
+    const val = btn.getAttribute('data-copy') || '';
+    const old = btn.textContent;
+    try {
+      await navigator.clipboard.writeText(val);
+      btn.textContent = 'Скопировано ✓';
+      btn.style.color = 'var(--color-primary)';
+    } catch {
+      btn.textContent = 'Ошибка';
+    }
+    setTimeout(() => { btn.textContent = old; btn.style.color = ''; }, 1400);
+  });
+
+  // === TH Tooltip portal ===
+  (function() {
+    const box = document.createElement('div');
+    box.id = 'th-tooltip-box';
+    box.setAttribute('role', 'tooltip');
+    document.body.appendChild(box);
+    let activeIcon = null;
+    function showTooltip(icon) {
+      const hint = icon.getAttribute('data-hint');
+      if (!hint) return;
+      box.textContent = hint;
+      box.style.visibility = 'hidden';
+      box.style.opacity = '1';
+      box.classList.add('visible');
+      const bw = box.offsetWidth;
+      const bh = box.offsetHeight;
+      box.style.visibility = '';
+      box.style.opacity = '';
+      const r = icon.getBoundingClientRect();
+      let left = r.left + r.width / 2 - bw / 2;
+      let top = r.top - bh - 10;
+      if (left < 8) left = 8;
+      if (left + bw > window.innerWidth - 8) left = window.innerWidth - 8 - bw;
+      if (top < 8) top = r.bottom + 10;
+      box.style.left = left + 'px';
+      box.style.top = top + 'px';
+      box.classList.add('visible');
+      activeIcon = icon;
+    }
+    function hideTooltip() {
+      box.classList.remove('visible');
+      activeIcon = null;
+    }
+    document.addEventListener('click', (e) => {
+      const icon = e.target.closest('.th-hint-icon');
+      if (!icon) { hideTooltip(); return; }
+      e.stopPropagation();
+      if (activeIcon === icon) { hideTooltip(); } else { showTooltip(icon); }
+    });
+    window.addEventListener('scroll', hideTooltip, { passive: true });
+    window.addEventListener('resize', hideTooltip, { passive: true });
+  })();
 </script>
 
 </body>
