@@ -1222,141 +1222,37 @@
     /* ===== ПРОМОКОДЫ GRID ===== */
     .promos-grid {
       display: grid;
-      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
     }
     .promo-card {
       background: var(--color-surface);
-      border-radius: 18px;
+      border-radius: 16px;
       border: 1px solid var(--color-border);
+      padding: 14px 16px;
       box-shadow: var(--shadow-sm);
-      display: grid !important;
-      grid-template-columns: 60px 1fr 52px !important;
-      align-items: stretch !important;
-      gap: 0 !important;
-      overflow: hidden;
-      padding: 0 !important;
     }
-    .promo-logo-wrap {
-      width: 60px;
-      min-width: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 0 14px 14px;
-      align-self: stretch;
-    }
-    .promo-logo-inner {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: var(--color-surface-soft, #f3f4f6);
-      border: 1px solid var(--color-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .promo-logo {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #fff;
-      display: block;
-    }
-    .promo-logo-fallback {
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--color-primary);
-    }
-    .promo-main {
-      padding: 14px 12px 14px 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 7px;
-      min-width: 0;
-    }
-    .promo-service-name {
-      font-size: var(--text-sm, 0.9rem);
+    .promo-card__name {
       font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.2;
+      font-size: var(--text-sm);
+      margin-bottom: 4px;
     }
-    .promo-code-row {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-    .promo-code-pill {
+    .promo-card__code {
       display: inline-flex;
       align-items: center;
-      height: 32px;
-      padding: 0 11px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--color-primary) 10%, transparent);
-      border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+      gap: 6px;
+      background: var(--color-primary-highlight);
       color: var(--color-primary);
-      font-family: var(--font-mono, monospace);
-      font-size: 0.8rem;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-    }
-    .promo-copy-inline {
-      height: 32px;
-      padding: 0 11px;
-      border-radius: 999px;
-      background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text);
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-    }
-    .promo-copy-inline:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-    }
-    .promo-copy-inline.is-copied {
-      color: var(--color-success, #22c55e);
-      border-color: var(--color-success, #22c55e);
+      margin: 6px 0;
     }
     .promo-card__desc {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--color-text-muted);
-      line-height: 1.4;
-    }
-    .promo-cta {
-      width: 52px;
-      min-width: 52px;
-      align-self: stretch;
-      border-radius: 0 18px 18px 0;
-      background: linear-gradient(180deg, var(--color-primary-hover, #0c4e54) 0%, var(--color-primary, #01696f) 100%);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      border: none;
-      transition: opacity 0.15s, transform 0.15s;
-    }
-    .promo-cta:hover {
-      opacity: 0.88;
-      transform: translateX(1px);
-    }
-    .promo-cta .material-symbols-rounded {
-      font-size: 22px;
-    }
-    @media (max-width: 700px) {
-      .promo-card {
-        grid-template-columns: 52px 1fr 44px !important;
-      }
-      .promo-logo-wrap { width: 52px; min-width: 52px; padding: 12px 0 12px 12px; }
-      .promo-logo-inner { width: 40px; height: 40px; border-radius: 10px; }
-      .promo-cta { width: 44px; min-width: 44px; }
-      .promo-main { padding: 12px 10px 12px 12px; }
     }
 
     /* ===== FAQ ===== */
@@ -1390,7 +1286,131 @@
       color: var(--color-text-muted);
       line-height: 1.6;
     }
-  </style>
+  
+
+/* ===== PROMOS HARD OVERRIDE ===== */
+#promos-grid {
+  display: grid !important;
+  gap: 12px !important;
+}
+#promos-grid .promo-item-hard {
+  display: grid !important;
+  grid-template-columns: 56px minmax(0,1fr) 48px !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 18px !important;
+  background: var(--color-surface) !important;
+  box-shadow: var(--shadow-sm) !important;
+  overflow: hidden !important;
+}
+#promos-grid .promo-item-hard__logo {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 14px !important;
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-surface-soft, #f5f5f5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+#promos-grid .promo-item-hard__logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  background: #fff !important;
+  display: block !important;
+}
+#promos-grid .promo-item-hard__fallback {
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  color: var(--color-primary) !important;
+}
+#promos-grid .promo-item-hard__main {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+#promos-grid .promo-item-hard__name {
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+  color: var(--color-text) !important;
+}
+#promos-grid .promo-item-hard__row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+#promos-grid .promo-item-hard__code {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 34px !important;
+  padding: 0 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border)) !important;
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent) !important;
+  color: var(--color-primary) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  font-family: var(--font-mono, monospace) !important;
+  letter-spacing: .03em !important;
+}
+#promos-grid .promo-item-hard__copy {
+  min-height: 34px !important;
+  padding: 0 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--color-border) !important;
+  background: transparent !important;
+  color: var(--color-text) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+#promos-grid .promo-item-hard__desc {
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+  color: var(--color-text-muted) !important;
+  max-width: none !important;
+}
+#promos-grid .promo-item-hard__go {
+  width: 48px !important;
+  min-width: 48px !important;
+  align-self: stretch !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, var(--color-primary-hover), var(--color-primary)) !important;
+  color: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+}
+#promos-grid .promo-item-hard__go .material-symbols-rounded {
+  font-size: 22px !important;
+}
+@media (max-width: 700px) {
+  #promos-grid .promo-item-hard {
+    grid-template-columns: 48px minmax(0,1fr) 42px !important;
+    gap: 10px !important;
+    padding: 12px !important;
+  }
+  #promos-grid .promo-item-hard__logo {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+  }
+  #promos-grid .promo-item-hard__go {
+    width: 42px !important;
+    min-width: 42px !important;
+    border-radius: 12px !important;
+  }
+}
+</style>
 </head>
 <body>
 <div class="page-shell">
@@ -1997,50 +2017,45 @@
   function fillPromos() {
     const grid = document.getElementById('promos-grid');
     if (!grid) return;
-    grid.innerHTML = '';
+    const LOGO_MAP = {
+      'EPN': 'img/servisi/E.pn.webp',
+      'Mybrocard': 'img/servisi/mybrocard.webp',
+      'Brocard': 'img/servisi/mybrocard.webp',
+      'AdsCard': 'img/servisi/Abcard.webp',
+      'FlexCard': 'img/servisi/FlexCard.webp',
+      'PSTNET': 'img/servisi/PST..webp',
+      'Spendge': 'img/servisi/Spendge.webp',
+      'Capitalist': 'img/servisi/capitalist.webp',
+      'Pay2House': 'img/servisi/pay2house.webp'
+    };
+    const esc = (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     const withPromo = SERVICES.filter(s => s.promo && s.promo.code);
     if (!withPromo.length) {
-      grid.innerHTML = '<p style="font-size:0.75rem;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
+      grid.innerHTML = '<p style="font-size:12px;color:var(--color-text-muted)">Промокоды скоро появятся</p>';
       return;
     }
-    withPromo.forEach(svc => {
-      const card = document.createElement('article');
-      card.className = 'promo-card';
-      const LOGO_MAP = {
-        'EPN': 'img/servisi/E.pn.webp',
-        'Mybrocard': 'img/servisi/mybrocard.webp',
-        'Brocard': 'img/servisi/mybrocard.webp',
-        'AdsCard': 'img/servisi/Abcard.webp',
-        'FlexCard': 'img/servisi/FlexCard.webp',
-        'FuncCards': 'img/servisi/FuncCards.webp',
-        'Multicards': 'img/servisi/Multicards.webp',
-        'PSTNET': 'img/servisi/PST..webp',
-        'Spendge': 'img/servisi/Spendge.webp',
-        'Capitalist': 'img/servisi/capitalist.webp',
-        'Pay2House': 'img/servisi/pay2house.webp'
-      };
-      const escHtml = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    grid.innerHTML = withPromo.map((svc) => {
       const logo = LOGO_MAP[svc.name] || '';
-      const fallback = escHtml((svc.name||'?').slice(0,2).toUpperCase());
-      const logoContent = logo
-        ? `<img class="promo-logo" src="${logo}" alt="${escHtml(svc.name)}" loading="lazy" width="48" height="48">`
-        : `<span class="promo-logo-fallback">${fallback}</span>`;
-      card.innerHTML = `
-        <div class="promo-logo-wrap"><div class="promo-logo-inner">${logoContent}</div></div>
-        <div class="promo-main">
-          <div class="promo-service-name">${escHtml(svc.name)}</div>
-          <div class="promo-code-row">
-            <span class="promo-code-pill">${escHtml(svc.promo.code)}</span>
-            <button class="promo-copy-inline" type="button" data-copy="${escHtml(svc.promo.code)}">Копировать</button>
+      const fallback = esc((svc.name || '?').slice(0,2).toUpperCase());
+      const logoHtml = logo
+        ? `<img src="${logo}" alt="${esc(svc.name)}" loading="lazy" width="56" height="56">`
+        : `<span class="promo-item-hard__fallback">${fallback}</span>`;
+      return `
+        <article class="promo-item-hard">
+          <div class="promo-item-hard__logo">${logoHtml}</div>
+          <div class="promo-item-hard__main">
+            <div class="promo-item-hard__name">${esc(svc.name === 'Brocard' ? 'Mybrocard' : svc.name)}</div>
+            <div class="promo-item-hard__row">
+              <span class="promo-item-hard__code">${esc(svc.promo.code)}</span>
+              <button class="promo-item-hard__copy" type="button" data-copy="${esc(svc.promo.code)}">Копировать</button>
+            </div>
+            <div class="promo-item-hard__desc">${esc(svc.promo.description || '')}</div>
           </div>
-          <div class="promo-card__desc">${escHtml(svc.promo.description||'')}</div>
-        </div>
-        <a class="promo-cta" href="${svc.url}" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт ${escHtml(svc.name)}">
-          <span class="material-symbols-rounded">arrow_forward</span>
-        </a>
-      `;
-      grid.appendChild(card);
-    });
+          <a class="promo-item-hard__go" href="${svc.url}" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт ${esc(svc.name)}">
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
+        </article>`;
+    }).join('');
   }
 
   // === TOC НАВИГАЦИЯ ===
