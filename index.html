@@ -1222,55 +1222,63 @@
     /* ===== ПРОМОКОДЫ GRID ===== */
     .promos-grid {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
     .promo-card {
       background: var(--color-surface);
       border-radius: 18px;
       border: 1px solid var(--color-border);
-      padding: 14px;
       box-shadow: var(--shadow-sm);
-      display: grid;
-      grid-template-columns: 56px minmax(0, 1fr) 50px;
-      align-items: stretch;
-      gap: 14px;
+      display: grid !important;
+      grid-template-columns: 60px 1fr 52px !important;
+      align-items: stretch !important;
+      gap: 0 !important;
       overflow: hidden;
+      padding: 0 !important;
     }
     .promo-logo-wrap {
-      width: 56px;
-      min-width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      background: var(--color-surface-soft);
+      width: 60px;
+      min-width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 0 14px 14px;
+      align-self: stretch;
+    }
+    .promo-logo-inner {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--color-surface-soft, #f3f4f6);
       border: 1px solid var(--color-border);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      align-self: start;
+      flex-shrink: 0;
     }
     .promo-logo {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      display: block;
       background: #fff;
+      display: block;
     }
     .promo-logo-fallback {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: var(--color-primary);
-      letter-spacing: 0.04em;
     }
     .promo-main {
-      min-width: 0;
+      padding: 14px 12px 14px 14px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
+      min-width: 0;
     }
     .promo-service-name {
-      font-size: var(--text-base);
+      font-size: var(--text-sm, 0.9rem);
       font-weight: 700;
       color: var(--color-text);
       line-height: 1.2;
@@ -1278,86 +1286,77 @@
     .promo-code-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
     }
     .promo-code-pill {
       display: inline-flex;
       align-items: center;
-      min-height: 36px;
-      padding: 0 12px;
+      height: 32px;
+      padding: 0 11px;
       border-radius: 999px;
-      background: var(--color-primary-highlight);
-      border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
+      background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
       color: var(--color-primary);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
+      font-family: var(--font-mono, monospace);
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.04em;
     }
     .promo-copy-inline {
-      min-height: 36px;
-      padding: 0 12px;
+      height: 32px;
+      padding: 0 11px;
       border-radius: 999px;
       background: transparent;
       border: 1px solid var(--color-border);
       color: var(--color-text);
-      font-size: var(--text-xs);
+      font-size: 0.72rem;
       font-weight: 700;
-      transition: var(--transition-fast);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
     }
     .promo-copy-inline:hover {
-      border-color: rgba(123, 203, 103, 0.24);
-      box-shadow: 0 0 0 1px rgba(123, 203, 103, 0.14), 0 0 24px rgba(123, 203, 103, 0.10);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
     }
     .promo-copy-inline.is-copied {
-      color: var(--color-success);
-      border-color: color-mix(in srgb, var(--color-success) 28%, var(--color-border));
+      color: var(--color-success, #22c55e);
+      border-color: var(--color-success, #22c55e);
     }
     .promo-card__desc {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: var(--color-text-muted);
       line-height: 1.4;
-      max-width: none;
     }
     .promo-cta {
-      width: 50px;
-      min-width: 50px;
+      width: 52px;
+      min-width: 52px;
       align-self: stretch;
-      border-radius: 14px;
-      background: linear-gradient(180deg, var(--color-primary-hover) 0%, var(--color-primary) 100%);
+      border-radius: 0 18px 18px 0;
+      background: linear-gradient(180deg, var(--color-primary-hover, #0c4e54) 0%, var(--color-primary, #01696f) 100%);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      box-shadow: 0 10px 24px rgba(1, 105, 111, 0.18);
-      transition: var(--transition-fast);
+      border: none;
+      transition: opacity 0.15s, transform 0.15s;
     }
     .promo-cta:hover {
+      opacity: 0.88;
       transform: translateX(1px);
-      box-shadow: 0 0 0 1px rgba(1, 105, 111, 0.16), 0 0 28px rgba(1, 105, 111, 0.18);
     }
     .promo-cta .material-symbols-rounded {
       font-size: 22px;
     }
     @media (max-width: 700px) {
       .promo-card {
-        grid-template-columns: 48px minmax(0, 1fr) 42px;
-        gap: 12px;
-        padding: 12px;
+        grid-template-columns: 52px 1fr 44px !important;
       }
-      .promo-logo-wrap {
-        width: 48px;
-        min-width: 48px;
-        height: 48px;
-        border-radius: 12px;
-      }
-      .promo-cta {
-        width: 42px;
-        min-width: 42px;
-        border-radius: 12px;
-      }
+      .promo-logo-wrap { width: 52px; min-width: 52px; padding: 12px 0 12px 12px; }
+      .promo-logo-inner { width: 40px; height: 40px; border-radius: 10px; }
+      .promo-cta { width: 44px; min-width: 44px; }
+      .promo-main { padding: 12px 10px 12px 12px; }
     }
 
     /* ===== FAQ ===== */
@@ -1735,27 +1734,6 @@
 </div><!-- /page-shell -->
 
 <script>
-  const SERVICE_LOGOS = {
-    'EPN': 'img/servisi/E.pn.webp',
-    'AdsCard': 'img/servisi/Abcard.webp',
-    'FlexCard': 'img/servisi/FlexCard.webp',
-    'FuncCards': 'img/servisi/FuncCards.webp',
-    'Multicards': 'img/servisi/Multicards.webp',
-    'PSTNET': 'img/servisi/PST..webp',
-    'Spendge': 'img/servisi/Spendge.webp',
-    'Capitalist': 'img/servisi/capitalist.webp',
-    'Mybrocard': 'img/servisi/mybrocard.webp',
-    'Pay2House': 'img/servisi/pay2house.webp'
-  };
-
-  const getServiceLogo = (name) => SERVICE_LOGOS[name] || '';
-
-  const sanitizePromoText = (value) => String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-
   const SERVICES = [
     {
       name: "PSTNET",
@@ -1780,7 +1758,7 @@
     },
 
     {
-      name: "Mybrocard",
+      name: "Brocard",
       funding_fee_pct: 0,
       card_issue_fee: 0,
       card_monthly_fee: 0,
@@ -2028,22 +2006,36 @@
     withPromo.forEach(svc => {
       const card = document.createElement('article');
       card.className = 'promo-card';
-      const logo = getServiceLogo(svc.name);
-      const fallback = sanitizePromoText((svc.name || '?').slice(0, 2).toUpperCase());
-      const logoMarkup = logo
-        ? `<img class="promo-logo" src="${logo}" alt="${sanitizePromoText(svc.name)} logo" loading="lazy" width="56" height="56">`
+      const LOGO_MAP = {
+        'EPN': 'img/servisi/E.pn.webp',
+        'Mybrocard': 'img/servisi/mybrocard.webp',
+        'Brocard': 'img/servisi/mybrocard.webp',
+        'AdsCard': 'img/servisi/Abcard.webp',
+        'FlexCard': 'img/servisi/FlexCard.webp',
+        'FuncCards': 'img/servisi/FuncCards.webp',
+        'Multicards': 'img/servisi/Multicards.webp',
+        'PSTNET': 'img/servisi/PST..webp',
+        'Spendge': 'img/servisi/Spendge.webp',
+        'Capitalist': 'img/servisi/capitalist.webp',
+        'Pay2House': 'img/servisi/pay2house.webp'
+      };
+      const escHtml = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const logo = LOGO_MAP[svc.name] || '';
+      const fallback = escHtml((svc.name||'?').slice(0,2).toUpperCase());
+      const logoContent = logo
+        ? `<img class="promo-logo" src="${logo}" alt="${escHtml(svc.name)}" loading="lazy" width="48" height="48">`
         : `<span class="promo-logo-fallback">${fallback}</span>`;
       card.innerHTML = `
-        <div class="promo-logo-wrap">${logoMarkup}</div>
+        <div class="promo-logo-wrap"><div class="promo-logo-inner">${logoContent}</div></div>
         <div class="promo-main">
-          <div class="promo-service-name">${sanitizePromoText(svc.name)}</div>
+          <div class="promo-service-name">${escHtml(svc.name)}</div>
           <div class="promo-code-row">
-            <span class="promo-code-pill">${sanitizePromoText(svc.promo.code)}</span>
-            <button class="promo-copy-inline" type="button" data-copy="${sanitizePromoText(svc.promo.code)}">Копировать</button>
+            <span class="promo-code-pill">${escHtml(svc.promo.code)}</span>
+            <button class="promo-copy-inline" type="button" data-copy="${escHtml(svc.promo.code)}">Копировать</button>
           </div>
-          <div class="promo-card__desc">${sanitizePromoText(svc.promo.description || '')}</div>
+          <div class="promo-card__desc">${escHtml(svc.promo.description||'')}</div>
         </div>
-        <a class="promo-cta" href="${svc.url}" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт ${sanitizePromoText(svc.name)}">
+        <a class="promo-cta" href="${svc.url}" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт ${escHtml(svc.name)}">
           <span class="material-symbols-rounded">arrow_forward</span>
         </a>
       `;
