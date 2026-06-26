@@ -144,10 +144,6 @@
       background: var(--color-primary-hover);
       color: #020812;
     }
-    [data-theme="dark"] .brand-logo {
-      background: radial-gradient(circle at top, #33c4ff 0, #0e92c7 40%, #091524 100%);
-      box-shadow: 0 12px 26px rgba(51, 196, 255, 0.30);
-    }
     [data-theme="dark"] .nav-item.active {
       background: rgba(51, 196, 255, 0.16);
       color: var(--color-text);
@@ -206,10 +202,6 @@
     [data-theme="dark"] .visit-btn:hover {
       background: var(--color-primary-hover);
       color: #0b1b13;
-    }
-    [data-theme="dark"] .brand-logo {
-      background: radial-gradient(circle at top, #7cd47c 0, #3a8152 42%, #1b242f 100%);
-      box-shadow: 0 10px 24px rgba(124, 212, 124, 0.25);
     }
     [data-theme="dark"] .nav-item.active {
       background: rgba(124, 212, 124, 0.16);
@@ -275,10 +267,6 @@
       background: var(--color-primary-hover);
       color: #433328;
     }
-    [data-theme="dark"] .brand-logo {
-      background: linear-gradient(135deg, #e7d08f, #e8b86a);
-      box-shadow: 0 10px 20px rgba(232, 184, 106, 0.18);
-    }
     [data-theme="dark"] .nav-item.active {
       background: rgba(232, 184, 106, 0.16);
       color: #4b4035;
@@ -318,34 +306,23 @@
       }
     }
     .brand-card {
-      background: var(--color-surface);
-      border-radius: 24px;
-      padding: 18px 18px 16px;
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-sm);
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 4px 0 8px;
       display: flex;
       align-items: center;
-      gap: 12px;
     }
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, var(--color-primary-soft), var(--color-primary));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-xs);
+    .brand-img {
+      width: 200px;
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
-    .brand-title {
-      font-size: var(--text-sm);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    .brand-subtitle {
-      font-size: var(--text-xs);
-      color: var(--color-text-muted);
-    }
+    /* По умолчанию (светлая тема) — логотип для светлой, тёмный скрыт */
+    .brand-img--dark { display: none; }
+    [data-theme="dark"] .brand-img--light { display: none; }
+    [data-theme="dark"] .brand-img--dark { display: block; }
 
     .nav-list {
       margin-top: 4px;
@@ -1495,18 +1472,8 @@
     <!-- LEFT NAV / CONTROLS -->
     <aside class="nav-pane">
       <div class="brand-card">
-        <div class="brand-logo">
-          <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="CardCalc logo">
-            <rect x="3" y="7" width="22" height="14" rx="3" stroke="#ffffff" stroke-width="1.6"/>
-            <line x1="3" y1="11.5" x2="25" y2="11.5" stroke="#ffffff" stroke-width="1.4"/>
-            <rect x="6" y="15" width="5" height="2.5" rx="0.75" fill="#ffffff"/>
-            <rect x="13" y="15" width="3" height="2.5" rx="0.75" fill="#ffffff" opacity="0.7"/>
-          </svg>
-        </div>
-        <div>
-          <div class="brand-title">CardCalc</div>
-          <div class="brand-subtitle">Дэшборд виртуальных карт для арбитража</div>
-        </div>
+        <img class="brand-img brand-img--light" src="/img/logo/miniw.webp" alt="CardCalc" width="200">
+        <img class="brand-img brand-img--dark" src="/img/logo/minid.webp" alt="CardCalc" width="200">
       </div>
 
       <nav class="nav-list" aria-label="Содержание страницы">
