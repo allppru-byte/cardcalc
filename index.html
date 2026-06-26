@@ -950,6 +950,20 @@
       background: #f3f4f6;
       color: var(--color-text-muted);
     }
+    .tag.currency {
+      background: var(--color-primary-highlight, #ecfdf5);
+      color: var(--color-primary);
+      border-color: rgba(34, 197, 94, 0.28);
+      font-weight: 600;
+    }
+    .card-detail-group { margin-bottom: 8px; }
+    .card-detail-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 3px;
+    }
+    .card-detail-group .card-tags { margin-top: 0; }
 
     .total-label { font-size: 0.7rem; color: var(--color-text-muted); }
     .total-cost {
@@ -1090,7 +1104,7 @@
       max-height: 0;
       transition: max-height 0.3s ease;
     }
-    .card-details.open { max-height: 300px; }
+    .card-details.open { max-height: 420px; }
     .card-details-inner {
       padding-top: 8px;
       border-top: 1px solid var(--color-border);
@@ -1718,6 +1732,13 @@
               </div>
               <div class="toggle-switch"></div>
             </button>
+            <button class="toggle-row" id="toggle-nokyc" aria-pressed="false">
+              <div>
+                <div class="toggle-row-title">🔓 Только без KYC</div>
+                <div class="toggle-row-desc">Сервисы без верификации личности</div>
+              </div>
+              <div class="toggle-switch"></div>
+            </button>
           </div>
 
           <button class="calc-btn" id="calc-btn" type="button">
@@ -2055,6 +2076,7 @@
     binCountry: "Любая",
     onlyCashback: false,
     onlyPromo: false,
+    onlyNoKYC: false,
   };
 
   const spendInput = document.getElementById('monthly-spend');
@@ -2225,6 +2247,7 @@
   }
   initToggle('toggle-cashback', 'onlyCashback');
   initToggle('toggle-promo', 'onlyPromo');
+  initToggle('toggle-nokyc', 'onlyNoKYC');
 
   spendInput.addEventListener('input', () => {
     state.spend = parseFloat(spendInput.value) || 1000;
@@ -2271,6 +2294,7 @@
   }
   function matchesCashback(svc) { return !state.onlyCashback || svc.cashback_pct > 0; }
   function matchesPromo(svc) { return !state.onlyPromo || svc.promo !== null; }
+  function matchesNoKYC(svc) { return !state.onlyNoKYC || svc.nokyc === true; }
   function matchesBinCountry(svc) {
     if (state.binCountry === 'Любая') return true;
     return svc.bin_countries && svc.bin_countries.includes(state.binCountry);
@@ -2317,6 +2341,9 @@
     }
     if (state.onlyPromo) {
       chips.push({ key: 'promo', label: 'Бонус', value: 'С промокодами' });
+    }
+    if (state.onlyNoKYC) {
+      chips.push({ key: 'nokyc', label: 'Доступ', value: 'Без KYC' });
     }
 
     chips.forEach(ch => {
@@ -2418,6 +2445,15 @@
           }
           break;
         }
+        case 'nokyc': {
+          state.onlyNoKYC = false;
+          const nk = document.getElementById('toggle-nokyc');
+          if (nk) {
+            nk.classList.remove('active');
+            nk.setAttribute('aria-pressed', 'false');
+          }
+          break;
+        }
       }
       updateFilterChips();
       render();
@@ -2507,6 +2543,7 @@
       .filter(matchesWorkModel)
       .filter(matchesCashback)
       .filter(matchesPromo)
+      .filter(matchesNoKYC)
       .filter(matchesBinCountry);
 
     if (filtered.length === 0) {
@@ -2568,6 +2605,11 @@
         const flag = c === 'США' ? '🇺🇸' : (c === 'Европа' ? '🇪🇺' : '🏦');
         return `<span class="tag bin-country">${flag} ${c}</span>`;
       }).join('');
+      const CURRENCY_SYMBOL = { USD: '$', EUR: '€', GBP: '£' };
+      const currencyTags = (svc.card_currencies || []).map(cur => {
+        const sym = CURRENCY_SYMBOL[cur] || '';
+        return `<span class="tag currency">${sym ? sym + ' ' : ''}${cur}</span>`;
+      }).join('');
       const noKYCBadge = svc.nokyc ? `<span class="tag" style="background:#dcfce7;color:#16a34a;border-color:#bbf7d0;">Без KYC</span>` : '';
       const promoBadge = svc.promo ? `<span class="promo-badge">🎟 Промокод</span>` : '';
 
@@ -2575,14 +2617,10 @@
       feeItems.push(`<span class="fee-item"><span>Фандинг ${svc.funding_fee_pct}%:</span><span class="fee-val${cost.fundingFee===0?' zero':''}">&nbsp;${fmtUSD(cost.fundingFee)}</span></span>`);
       feeItems.push(`<span class="fee-separator">·</span>`);
       feeItems.push(`<span class="fee-item"><span>Выпуск×${cost.paidCards}:</span><span class="fee-val${cost.issueFee===0?' zero':''}">&nbsp;${fmtUSD(cost.issueFee)}</span></span>`);
-      if (cost.monthlyFee > 0) {
-        feeItems.push(`<span class="fee-separator">·</span>`);
-        feeItems.push(`<span class="fee-item"><span>Обслуживание:</span><span class="fee-val">&nbsp;${fmtUSD(cost.monthlyFee)}</span></span>`);
-      }
-      if (cost.accountFee > 0) {
-        feeItems.push(`<span class="fee-separator">·</span>`);
-        feeItems.push(`<span class="fee-item"><span>Аккаунт:</span><span class="fee-val">&nbsp;${fmtUSD(cost.accountFee)}</span></span>`);
-      }
+      feeItems.push(`<span class="fee-separator">·</span>`);
+      feeItems.push(`<span class="fee-item"><span>Обслуживание:</span><span class="fee-val${cost.monthlyFee===0?' zero':''}">&nbsp;${fmtUSD(cost.monthlyFee)}</span></span>`);
+      feeItems.push(`<span class="fee-separator">·</span>`);
+      feeItems.push(`<span class="fee-item"><span>Аккаунт:</span><span class="fee-val${cost.accountFee===0?' zero':''}">&nbsp;${fmtUSD(cost.accountFee)}</span></span>`);
       if (cost.cashback > 0) {
         feeItems.push(`<span class="fee-separator">·</span>`);
         feeItems.push(`<span class="fee-item"><span>Кэшбэк:</span><span class="fee-val neg">&nbsp;−${fmtUSD(cost.cashback)}</span></span>`);
@@ -2614,6 +2652,10 @@
       const detailsHtml = `
         <div class="card-details${detailsOpen}">
           <div class="card-details-inner">
+            <div class="card-detail-group">
+              <div class="card-detail-label">Валюта карты</div>
+              <div class="card-tags">${currencyTags || '<span class="tag currency">—</span>'}</div>
+            </div>
             <div class="card-tags">${platformTags}${binCountryTags}${methodTags}${noKYCBadge}${teamBadge}</div>
           </div>
         </div>
