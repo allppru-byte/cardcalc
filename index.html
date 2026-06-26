@@ -2424,6 +2424,29 @@
     });
   }
 
+  // ===== НАДЁЖНЫЙ ПЕРЕХОД НА САЙТ (работает и внутри iframe-превью) =====
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a.visit-btn, a.promo-site-btn');
+    if (!link) return;
+    const url = link.getAttribute('href');
+    if (!url || url === '#') return;
+    e.preventDefault();
+    // Пытаемся открыть в новой вкладке; если блокируется (popup/iframe) — открываем верхний фрейм.
+    let win = null;
+    try { win = window.open(url, '_blank', 'noopener'); } catch (err) { win = null; }
+    if (!win) {
+      try {
+        if (window.top && window.top !== window.self) {
+          window.top.location.href = url;
+        } else {
+          window.location.href = url;
+        }
+      } catch (err) {
+        window.location.href = url;
+      }
+    }
+  });
+
   // ===== ИНФО-ИКОНКИ ТАБЛИЦЫ: клик показывает тултип =====
   document.addEventListener('click', (e) => {
     const icon = e.target.closest('.th-hint-icon');
