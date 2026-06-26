@@ -2150,7 +2150,7 @@
           <div class="promo-card__desc">${svc.promo.description}</div>
         </div>
         <div class="promo-card__actions">
-          <a class="promo-site-btn" href="${refUrl}" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт ${dispName}">
+          <a class="promo-site-btn" href="${refUrl}" rel="noopener noreferrer" aria-label="Перейти на сайт ${dispName}">
             <span class="material-symbols-rounded">arrow_forward</span>
           </a>
         </div>
@@ -2431,19 +2431,25 @@
     const url = link.getAttribute('href');
     if (!url || url === '#') return;
     e.preventDefault();
-    // Пытаемся открыть в новой вкладке; если блокируется (popup/iframe) — открываем верхний фрейм.
+    e.stopPropagation();
+    // Открываем сайт в новой вкладке. НЕ передаём 'noopener' третьим аргументом
+    // — иначе некоторые браузеры возвращают null и ложно срабатывает fallback.
     let win = null;
-    try { win = window.open(url, '_blank', 'noopener'); } catch (err) { win = null; }
-    if (!win) {
-      try {
-        if (window.top && window.top !== window.self) {
-          window.top.location.href = url;
-        } else {
-          window.location.href = url;
-        }
-      } catch (err) {
+    try { win = window.open(url, '_blank'); } catch (err) { win = null; }
+    if (win) {
+      // безопасность: разрываем связь с открывшей страницей
+      try { win.opener = null; } catch (err) {}
+      return;
+    }
+    // Новая вкладка заблокирована (popup/iframe) — переходим в текущем окне.
+    try {
+      if (window.top && window.top !== window.self) {
+        window.top.location.href = url;
+      } else {
         window.location.href = url;
       }
+    } catch (err) {
+      window.location.href = url;
     }
   });
 
@@ -2641,7 +2647,7 @@
             <div class="total-cost">${fmtUSD(cost.total)}</div>
             <div class="pct-label">${fmtPct(cost.total, spend)} от спенда</div>
           </div>
-          <a class="visit-btn" href="${svc.ref_url || '#'}" target="_blank" rel="noopener noreferrer">
+          <a class="visit-btn" href="${svc.ref_url || '#'}" rel="noopener noreferrer">
             На сайт<span class="material-symbols-rounded" style="font-size:16px">open_in_new</span>
           </a>
         </div>
