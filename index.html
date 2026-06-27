@@ -285,7 +285,9 @@
     .icon{
     width: 20px;
     height: 20px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex: 0 0 20px;
     color: currentColor;
   }
@@ -998,14 +1000,6 @@
       .page-inner { border-radius: 0; box-shadow: none; }
     }
 
-    /* ── Material Symbols ── */
-    .material-symbols-rounded {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
-      font-size: 18px;
-      line-height: 1;
-      vertical-align: middle;
-    }
-
     /* ── Best badge redesign ── */
     .best-badge {
       display: inline-flex;
@@ -1080,8 +1074,8 @@
       font-family: inherit;
     }
     .promo-copy-btn:hover { background: #f3f4f6; }
-    .promo-copy-btn .material-symbols-rounded { font-size: 16px; }
-    .promo-copy-btn.copied .material-symbols-rounded { color: var(--color-success); font-variation-settings: 'FILL' 1; }
+    .promo-copy-btn .icon { width: 16px; height: 16px; flex: 0 0 16px; }
+    .promo-copy-btn.copied .icon { color: var(--color-success); }
 
     /* ── Total block (right column) ── */
     .total-block {
@@ -1143,11 +1137,13 @@
       transition: color 0.15s;
     }
     .details-toggle:hover { color: var(--color-primary); }
-    .details-toggle .material-symbols-rounded {
-      font-size: 16px;
+    .details-toggle .icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
       transition: transform 0.25s;
     }
-    .details-toggle.open .material-symbols-rounded { transform: rotate(180deg); }
+    .details-toggle.open .icon { transform: rotate(180deg); }
 
 
     /* ===== НОВЫЕ СЕКЦИИ ===== */
@@ -1434,13 +1430,13 @@
       background: var(--color-surface-soft);
       color: var(--color-text);
     }
-    .promo-copy-inline .material-symbols-rounded { font-size: 15px; }
+    .promo-copy-inline .icon { width: 15px; height: 15px; flex: 0 0 15px; }
     .promo-copy-inline.copied {
       color: var(--color-success);
       border-color: var(--color-success);
     }
-    .promo-copy-inline.copied .material-symbols-rounded {
-      font-variation-settings: 'FILL' 1;
+    .promo-copy-inline.copied .icon {
+      color: var(--color-success);
     }
     .promo-card__desc {
       font-size: 0.7rem;
@@ -1465,7 +1461,7 @@
     }
     .promo-site-btn:hover { filter: brightness(1.08); }
     .promo-site-btn:active { transform: scale(0.96); }
-    .promo-site-btn .material-symbols-rounded { font-size: 20px; }
+    .promo-site-btn .icon { width: 20px; height: 20px; flex: 0 0 20px; }
     @media (max-width: 700px) {
       .promo-site-btn { width: 38px; }
     }
@@ -1550,7 +1546,7 @@
         <div class="topbar-menu">
           <span class="topbar-label">Меню</span>
           <div class="topbar-placeholder">
-            <span class="material-symbols-rounded" style="font-size:16px">dashboard</span>
+            <span class="icon" aria-hidden="true" style="width:16px;height:16px;flex:0 0 16px"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg></span>
             Здесь будет меню разделов
           </div>
         </div>
@@ -2167,18 +2163,18 @@
           <div class="promo-card__name">${dispName}</div>
           <div class="promo-card__top">
             <span class="promo-card__code">
-              <span class="material-symbols-rounded" style="font-size:14px">local_activity</span>
+              <span class="icon" aria-hidden="true" style="width:14px;height:14px;flex:0 0 14px"><svg viewBox="0 0 24 24"><path d="M4 7.5V12a2 2 0 0 0 .59 1.41l6 6a2 2 0 0 0 2.82 0l6-6A2 2 0 0 0 20 12V7.5A1.5 1.5 0 0 0 18.5 6H14l-2-2H5.5A1.5 1.5 0 0 0 4 5.5v2Z"></path><circle cx="9" cy="9" r="1.25"></circle></svg></span>
               ${svc.promo.code}
             </span>
             <button class="promo-copy-inline" type="button" data-copy="${svc.promo.code}" aria-label="Скопировать промокод">
-              <span class="material-symbols-rounded">content_copy</span>
+              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="2"></rect><path d="M5 15V7a2 2 0 0 1 2-2h8"></path></svg></span>
             </button>
           </div>
           <div class="promo-card__desc">${svc.promo.description}</div>
         </div>
         <div class="promo-card__actions">
           <a class="promo-site-btn" href="${refUrl}" rel="noopener noreferrer" aria-label="Перейти на сайт ${dispName}">
-            <span class="material-symbols-rounded">arrow_forward</span>
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 5 7 7-7 7"></path></svg></span>
           </a>
         </div>
       `;
@@ -2194,7 +2190,7 @@
         const original = btn.innerHTML;
         const done = () => {
           btn.classList.add('copied');
-          btn.innerHTML = '<span class="material-symbols-rounded">check</span>';
+          btn.innerHTML = '<span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"></path></svg></span>';
           setTimeout(() => {
             btn.classList.remove('copied');
             btn.innerHTML = original;
@@ -2634,7 +2630,7 @@
       // promo toggle button (always shows if promo exists)
       const promoBtn = svc.promo
         ? `<button class="promo-toggle-btn" onclick="togglePromo(this)">
-             <span class="material-symbols-rounded">local_activity</span>Промокод
+             <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5V12a2 2 0 0 0 .59 1.41l6 6a2 2 0 0 0 2.82 0l6-6A2 2 0 0 0 20 12V7.5A1.5 1.5 0 0 0 18.5 6H14l-2-2H5.5A1.5 1.5 0 0 0 4 5.5v2Z"></path><circle cx="9" cy="9" r="1.25"></circle></svg></span>Промокод
            </button>`
         : '';
 
@@ -2643,7 +2639,7 @@
         ? `<div class="promo-reveal">
              <div class="promo-reveal-row">
                <button class="promo-copy-btn" onclick="copyPromoNew(this, '${svc.promo.code}')">
-                 <span class="material-symbols-rounded">content_copy</span>
+                 <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="2"></rect><path d="M5 15V7a2 2 0 0 1 2-2h8"></path></svg></span>
                </button>
                <span class="promo-reveal-code">${svc.promo.code}</span>
              </div>
@@ -2666,7 +2662,7 @@
         </div>
         <button class="details-toggle${toggleOpen}" onclick="toggleDetails(this)">
           <span>${isBest ? 'Свернуть' : 'Подробнее'}</span>
-          <span class="material-symbols-rounded">expand_more</span>
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
         </button>`;
 
       const card = document.createElement('div');
@@ -2676,7 +2672,7 @@
           <div class="card-header">
             <div class="card-dot" style="background:${svc.color}"></div>
             <div class="card-name">${svc.name}</div>
-            ${isBest ? '<span class="best-badge"><span class="material-symbols-rounded" style="font-size:13px">star</span>Лучший выбор</span>' : ''}
+            ${isBest ? '<span class="best-badge"><span class="icon" aria-hidden="true" style="width:13px;height:13px;flex:0 0 13px"><svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="m12 2.5 2.95 5.98 6.6.96-4.77 4.65 1.13 6.57L12 17.55 6.09 20.66l1.13-6.57L2.45 9.44l6.6-.96L12 2.5Z"></path></svg></span>Лучший выбор</span>' : ''}
           </div>
           <div class="card-meta-row">
             ${cardTypeBadges}
@@ -2695,7 +2691,7 @@
             <div class="pct-label">${fmtPct(cost.total, spend)} от спенда</div>
           </div>
           <a class="visit-btn" href="${svc.ref_url || '#'}" rel="noopener noreferrer">
-            На сайт<span class="material-symbols-rounded" style="font-size:16px">open_in_new</span>
+            На сайт<span class="icon" aria-hidden="true" style="width:16px;height:16px;flex:0 0 16px"><svg viewBox="0 0 24 24"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"></path></svg></span>
           </a>
         </div>
       `;
@@ -2714,12 +2710,12 @@
   }
 
   function copyPromoNew(btn, code) {
-    const icon = btn.querySelector('.material-symbols-rounded');
+    const icon = btn.querySelector('.icon');
     function onCopied() {
-      if (icon) icon.textContent = 'check_circle';
+      if (icon) icon.innerHTML = '<svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"></path></svg>';
       btn.classList.add('copied');
       setTimeout(() => {
-        if (icon) icon.textContent = 'content_copy';
+        if (icon) icon.innerHTML = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="2"></rect><path d="M5 15V7a2 2 0 0 1 2-2h8"></path></svg>';
         btn.classList.remove('copied');
       }, 1600);
     }
